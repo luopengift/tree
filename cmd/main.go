@@ -5,6 +5,8 @@ import (
 
 	"github.com/luopengift/log"
 	"github.com/luopengift/tree"
+	"github.com/luopengift/tree/api"
+
 )
 
 func main() {
@@ -68,4 +70,5 @@ func main() {
 	tr.Put("/")
 	log.Display("$$", tr.Node)
 	tr.Dump("txt")
+	api.Init()
 }

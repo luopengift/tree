@@ -12,7 +12,7 @@ import (
 // Tree tree
 type Tree struct {
 	root  string
-	delim string
+	Delim string
 	*Node
 }
 
@@ -30,7 +30,7 @@ func (tr *Tree) GOString() string {
 func InitTree(root, delim string) *Tree {
 	return &Tree{
 		Node:  InitNode(root),
-		delim: delim,
+		Delim: delim,
 	}
 }
 
@@ -41,12 +41,12 @@ func (tr *Tree) Root() *Node {
 
 // Get get
 func (tr *Tree) Get(name string) *Node {
-	return tr.Root().Get(name)
+	return tr.Root().Search(name)
 }
 
 // Put put
 func (tr *Tree) Put(name string, value ...interface{}) {
-	keys := strings.Split(name, tr.delim)
+	keys := strings.Split(name, tr.Delim)
 	current := tr.Root()
 	log.Info("%v, %#v", name, keys)
 	for _, key := range keys {
