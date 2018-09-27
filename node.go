@@ -49,8 +49,15 @@ func (n *Node) Get(name string) *Node {
 
 // Delete a node and all subnode
 func (n *Node) Delete(name string) *Node {
-	//node := n.Search(name)
-
+	if n.Next == nil {
+		return nil
+	}
+	for idx, node := range n.Next {
+		if node.Name == name {
+			n.Next = append(n.Next[:idx], n.Next[idx+1:]...)
+			return node
+		}
+	}
 	return nil
 }
 

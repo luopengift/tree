@@ -41,7 +41,19 @@ func (tr *Tree) Root() *Node {
 
 // Get get
 func (tr *Tree) Get(name string) *Node {
-	return tr.Root().Search(name)
+	current := tr.Root()
+	keys := strings.Split(name, tr.Delim)
+	for _, key := range keys {
+		if key == "" {
+			continue
+		}
+		child := current.Get(key)
+		if child == nil {
+			return nil
+		}
+		current = child
+	}
+	return current
 }
 
 // Put put
@@ -67,7 +79,19 @@ func (tr *Tree) Put(name string, value ...interface{}) {
 
 // Delete delete a branch or node
 func (tr *Tree) Delete(name string) {
-
+	keys := strings.Split(name, tr.Delim)
+	current := tr.Root()
+	for _, key := range keys {
+		if key == "" {
+			continue
+		}
+		child := current.Get(key)
+		if child == nil {
+			return
+		}
+		current = child
+	}
+	current.parent.Delete(current.Name)
 }
 
 // Load load yaml file

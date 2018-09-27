@@ -2,7 +2,6 @@ package api
 
 import (
 	"github.com/luopengift/gohttp"
-	"github.com/luopengift/log"
 	"github.com/luopengift/tree"
 )
 
@@ -30,14 +29,12 @@ func Init() {
 	app.Run(":8080")
 }
 
+// TreeHandler TreeHandler
 type TreeHandler struct {
 	gohttp.APIHandler
 }
 
-func (t *TreeHandler) Prepare() {
-	log.Info("prepare, %v", t.URL)
-}
-
+// GET get
 func (t *TreeHandler) GET() {
 	node := tr.Get(t.URL.String())
 	if node == nil {
@@ -47,8 +44,13 @@ func (t *TreeHandler) GET() {
 	t.Output(node.Value)
 }
 
+// POST post
 func (t *TreeHandler) POST() {
 	tr.Put(t.URL.String(), t.GetBodyArgs())
-
 	t.Output("ok")
+}
+
+// DELETE delete
+func (t *TreeHandler) DELETE() {
+	tr.Delete(t.URL.String())
 }
